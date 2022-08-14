@@ -5,6 +5,7 @@ import com.hwae.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserService {
     private final UserRepository userRepository;
@@ -24,7 +25,7 @@ public class UserService {
     }
 
     private void validateDuplicateUser(User user) {
-        userRepository.findUserByNickName(user.getNickName())
+        userRepository.findByNickName(user.getNickName())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 닉네임입니다.");
                 });
@@ -35,5 +36,9 @@ public class UserService {
      */
     public List<User> findUsers() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> findOne(Long userId) {
+        return userRepository.findById(userId);
     }
 }

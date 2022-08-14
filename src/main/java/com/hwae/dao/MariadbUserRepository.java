@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface MariadbUserRepository extends JpaRepository<User, Long>, UserRepository {
     @Override
-    Optional<User> findUserByNickName(String name);
+    Optional<User> findByNickName(String name);
 }
